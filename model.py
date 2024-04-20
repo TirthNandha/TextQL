@@ -1,14 +1,16 @@
-from transformers import GPT2LMHeadModel, GPT2Tokenizer
 import torch
+from transformers import GPT2LMHeadModel, GPT2Tokenizer
+
 
 # Load the pre-trained model and tokenizer
-model_name = "EleutherAI/gpt-neo-2.7B"
+model_name = "gpt2-large"
 model = GPT2LMHeadModel.from_pretrained(model_name)
 tokenizer = GPT2Tokenizer.from_pretrained(model_name)
 
 # Set the device to GPU if available
 device = "cuda" if torch.cuda.is_available() else "cpu"
 model.to(device)
+
 def generate_sql_from_text(prompt, max_length=100):
     # Tokenize the input text
     input_ids = tokenizer.encode(prompt, return_tensors="pt").to(device)
@@ -19,6 +21,6 @@ def generate_sql_from_text(prompt, max_length=100):
     # Decode the generated text
     generated_text = tokenizer.decode(output[0], skip_special_tokens=True)
     return generated_text
-prompt = "Select all employees from the 'employees' table."
+prompt = "write sql query to display the employees whose salary is more than 30000"
 generated_sql = generate_sql_from_text(prompt)
 print(generated_sql)
