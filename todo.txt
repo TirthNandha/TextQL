@@ -1,0 +1,2 @@
+"Write SQL query forwrite sql query to display students having marks more than 70% of the time.\n\nThe following example shows how to use the forwrite SQL query to display students having marks more than 70% of the time.\n\nSELECT * FROM students WHERE marks > 70%\n\nThe following example shows how to use the forwrite SQL query to display students having marks more than 70% of the time.\n\nSELECT * FROM students WHERE marks > 70%\n\nThe following"
+
