@@ -11,6 +11,7 @@ const ChatGPTUI = () => {
   const [inputValue, setInputValue] = useState("");
   const chatEndRef = useRef(null);
   const [message,setMessage]=useState([])
+  const [ question, setQuestion] = useState("")
 
   useEffect(() => {
     scrollToBottom();
@@ -22,21 +23,20 @@ const ChatGPTUI = () => {
 
   const handleSendMessage = async () => {
     if (!inputValue.trim()) return; // Do nothing if input is empty
-    setMessage((prev)=>[...prev, inputValue])
-    const question = inputValue.trim();
+    setMessage((prev) => [...prev, inputValue]);
+    setQuestion(inputValue.trim());
     setInputValue(""); // Clear input field
-
+  
     try {
-      const response = await axios.get(`http://localhost:8000/query?query_string=${question}`);
+      const response = await axios.get(`http://localhost:8000/ask?question=${inputValue}`);
       const responseData = response.data;
-
-      console.log(conversation)
       // Update conversation with user's question and backend response
-      setConversation(prevConversation => [
+      setConversation((prevConversation) => [
         ...prevConversation,
-        { data: question, type: "question" },
-        { data: responseData, type: "answer" }
+        { data: inputValue, type: "question" },
+        { data: responseData.sql, type: "answer" } // Pass responseData.data instead of responseData
       ]);
+      console.log(conversation);
     } catch (error) {
       console.error("Error fetching data:", error);
       // Handle error, if needed
@@ -47,7 +47,7 @@ const ChatGPTUI = () => {
     <div className="flex flex-col h-screen">
       <div className="flex-1 p-4 overflow-y-auto">
         {conversation.map((message, index) => (
-          <ChatGPTMessage key={index} message={message} />
+          <ChatGPTMessage key={index} message={message} question={inputValue} />
         ))}
         <div ref={chatEndRef}></div>
       </div>

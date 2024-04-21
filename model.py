@@ -41,6 +41,8 @@ def generate_sql_from_text(prompt, max_length=100):
     # Extract the SQL query from the generated text
     print(generated_text)
     sql_query = generated_text.split("\n\n")[1].strip()
+# Decode the generated text
+
 
     return sql_query
 
