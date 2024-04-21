@@ -18,7 +18,7 @@ class BodyItem(BaseModel):
     cgpa: float | float = 0.00
 
 
-@app.post("/ask")
+@app.get("/ask")
 async def ask_question(question: str):
     # print("in q")
     # print("Item: ", question)
