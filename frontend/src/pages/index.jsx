@@ -29,13 +29,15 @@ const ChatGPTUI = () => {
   
     try {
       const response = await axios.get(`http://localhost:8000/ask?question=${inputValue}`);
-      const responseData = response.data;
+      const responseData = response;
       // Update conversation with user's question and backend response
       setConversation((prevConversation) => [
         ...prevConversation,
         { data: inputValue, type: "question" },
-        { data: responseData.sql, type: "answer" } // Pass responseData.data instead of responseData
+        { data: responseData.data.sql.message.content, type: "answer" } // Pass responseData.data instead of responseData
+  
       ]);
+      console.log("response data: ",responseData.data)
       console.log(conversation);
     } catch (error) {
       console.error("Error fetching data:", error);
