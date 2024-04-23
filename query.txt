@@ -1,2 +1,3 @@
 "write sql query to display students having marks more than 70"
 Display customers having name Himanshu
+get all students having marks more than 30

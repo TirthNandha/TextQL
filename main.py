@@ -18,12 +18,12 @@ def say_hi():
     return {"success": True}
 
 
-class BodyItem(BaseModel):
-    enrollment: int
-    name: str
-    surname: str
-    about: str | None = None
-    cgpa: float | float = 0.00
+# class BodyItem(BaseModel):
+#     enrollment: int
+#     name: str
+#     surname: str
+#     about: str | None = None
+#     cgpa: float | float = 0.00
 
 
 @app.get("/ask")
